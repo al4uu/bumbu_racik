@@ -20,8 +20,8 @@
 - **@al4uu**: For enhancing and optimizing the module, including adding custom tweaks and improving compatibility.
 
 ## 🫱🏻‍🫲🏼 Contribution
-<div>
-  <img align="left" width="100" src="./img/sovereigns_hydro.png">
+<div style="display: flex; align-items: center;">
+  <img width="100" src="./img/sovereigns_hydro.png" style="margin-right: 10px;">
   <p>If you would like to contribute or further develop Bumbu Racik, please fork this repository and submit a pull request. Enter suggestions or open an issue for further discussion.</p>
 </div>
 
