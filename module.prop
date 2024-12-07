@@ -1,0 +1,7 @@
+id=bumbu_racik
+name=Bumbu Racik
+version=2.1
+versionCode=21
+author=@al4uu
+description=bumbu racikan ala raja iblis
+updateJson=https://raw.githubusercontent.com/al4uu/bumbu_racik/main/update.json
