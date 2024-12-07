@@ -24,9 +24,6 @@
 </a>
 <p>If you would like to contribute or further develop Bumbu Racik, please fork this repository and submit a pull request. Enter suggestions or open an issue for further discussion.</p>
 
-### 📋 License
-This project is licensed under the **Apache License 2.0**. 
-
 ### Apache 2.0 License Overview
 ```text
 Licensed under the Apache License, Version 2.0 (the "License");
