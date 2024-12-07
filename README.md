@@ -7,5 +7,5 @@
 <p>Bumbu Racik is a custom Magisk/KernelSU/APatch module designed to optimize the performance and thermal management of Android devices. Initially based on the Neko Thermal module by @NekoTuru, it has been refined and enhanced by @al4uu to provide better performance, especially for Snapdragon-powered devices.</p>
 
 ## ❓ Requirements
-• Basic knowledge of Android modifications.
-• Android device with Root access (Magisk/KernelSU/APatch).
+- Basic knowledge of Android modifications.
+- Android device with Root access (Magisk/KernelSU/APatch).
