@@ -11,13 +11,13 @@
 - Android device with Root access (Magisk/KernelSU/APatch).
 
 ## 🤓 Installation
-1. Download the latest release from the [Releases Page](https://github.com/al4uu/bumbu-racik/releases).
+1. Download the latest release from the [Releases Page](https://github.com/al4uu/bumbu_racik/releases).
 2. Install the module via Magisk/KernelSU/APatch Manager.
 3. Reboot your device for the changes to take effect.
 
 ## 🙏🏻 Credits
-- **@NekoTuru**: For the original Neko Thermal module.
-- **@al4uu**: For enhancing and optimizing the module, including adding custom tweaks and improving compatibility.
+- **@NekoTuru** : For the original Neko Thermal module.
+- **@al4uu** : For enhancing and optimizing the module, including adding custom tweaks and improving compatibility.
 
 ## 🫱🏻‍🫲🏼 Contribution
 <div style="display: flex; align-items: center;">
