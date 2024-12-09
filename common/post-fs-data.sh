@@ -18,7 +18,7 @@ if [ -f "$MODULE_PROP" ] && [ ! -f "$BACKUP_PROP" ]; then
 fi
 
 if [ -f "$MODULE_PROP" ]; then
-    sed -i "s/^description=.*/description=[ 😋 Bumbu Racik is working | ✅ ${ROOT_METHOD} Manager ] bumbu racik khas raja iblis/" "$MODULE_PROP"
+    sed -i "s/^description=.*/description=[ 😋 Bumbu Racik is working | ✅ ${ROOT_METHOD} Manager ] a secret recipe to boost your android performance !/" "$MODULE_PROP"
 fi
 
 MODPATH=/data/adb/modules/bumbu_racik
