@@ -4,6 +4,7 @@ PROPFILE=true
 POSTFSDATA=true
 LATESTARTSERVICE=true
 
+ui_print " "
 ui_print "█▄▄ █░█ █▀▄▀█ █▄▄ █░█   █▀█ ▄▀█ █▀▀ █ █▄▀"
 ui_print "█▄█ █▄█ █░▀░█ █▄█ █▄█   █▀▄ █▀█ █▄▄ █ █░█"
 ui_print "- Author : @al4uu"
