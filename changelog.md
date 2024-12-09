@@ -1,4 +1,8 @@
-# Changelog
+# Changelogs
+
+## 2.3 (2024-12-09)
+- MediaTek Support : Bumbu Racik module now supports MediaTek chipsets in addition to Snapdragon, enhancing compatibility and performance.
+- Added specific optimizations and performance tweaks for MediaTek Chipset.
 
 ## 2.2 (2024-12-08)
 - Added new Performance Tweaks
