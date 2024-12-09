@@ -151,6 +151,32 @@ echo "3200000" > /proc/sys/kernel/sched_min_granularity_ns
 echo "2000000" > /proc/sys/kernel/sched_migration_cost_ns 
 echo "32" > /proc/sys/kernel/sched_nr_migrate
 
+echo "0" > /sys/kernel/ccci/debug
+echo "9 1" > /proc/ppm/policy_status
+echo "3 0" > /proc/ppm/policy_status
+echo "4 0" > /proc/ppm/policy_status
+echo "2 0" > /proc/ppm/policy_status
+echo "7 0" > /proc/ppm/policy_status
+echo "0" > /sys/kernel/tracing/tracing_on
+echo "1" > /proc/cpufreq/cpufreq_cci_mode
+echo "off" > /proc/sys/kernel/printk_devkmsg
+echo "80" > /proc/sys/vm/vfs_cache_pressure
+echo "0" > /proc/sys/kernel/sched_schedstats
+echo "0 0" > /proc/ppm/policy/ut_fix_freq_idx
+echo "1" > /sys/devices/system/cpu/perf/enable
+echo "1" > /dev/stune/top-app/schedtune.boost
+echo "3" > /proc/cpufreq/cpufreq_power_mode
+echo "-1 -1" > /proc/ppm/policy/ut_fix_core_num
+echo "0" > /proc/sys/kernel/perf_event_paranoid
+echo "1" > /proc/sys/kernel/sched_child_runs_first
+echo "3 0 0" > /proc/gpufreq/gpufreq_limit_table
+echo "950000" > /proc/gpufreq/gpufreq_opp_freq
+echo "1" > /dev/stune/top-app/schedtune.prefer_idle
+echo "3" > /proc/sys/kernel/perf_cpu_time_max_percent
+echo "1" >  /proc/perfmgr/syslimiter/syslimiter_force_disable
+echo "N" > /sys/module/workqueue/parameters/power_efficient
+echo "0" > /sys/devices/platform/10012000.dvfsrc/helio-dvfsrc/dvfsrc_req_ddr_opp
+
 back=/dev/cpuset/background/cpus
 echo "0-1" > $back
 
