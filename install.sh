@@ -7,7 +7,7 @@ LATESTARTSERVICE=true
 ui_print "█▄▄ █░█ █▀▄▀█ █▄▄ █░█   █▀█ ▄▀█ █▀▀ █ █▄▀"
 ui_print "█▄█ █▄█ █░▀░█ █▄█ █▄█   █▀▄ █▀█ █▄▄ █ █░█"
 ui_print "- Author : @al4uu"
-ui_print "- Version : 2.2"
+ui_print "- Version : 2.3"
 ui_print " "
 ui_print "- Installing.."
 
