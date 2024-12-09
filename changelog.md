@@ -1,5 +1,11 @@
 # Changelogs
 
+## 2.3.1 (2024-12-09)
+- HOTFIX :
+  - `Fix UI Installer`
+  - `Fix Dynamic Description`
+  - `Revert system.prop to the default state`
+
 ## 2.3 (2024-12-09)
 - MediaTek Support : Bumbu Racik module now supports MediaTek chipsets in addition to Snapdragon, enhancing compatibility and performance.
 - Added specific optimizations and performance tweaks for MediaTek Chipset.
