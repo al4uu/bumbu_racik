@@ -1,5 +1,10 @@
 # Changelogs
 
+## 2.4 (2024-12-10)
+- Added new Snapdragon Tweaks.
+- Improve CPU Boost and Reduce Debugging Overhead.
+- Dropped MediaTek support due to limited user feedback and the need to focus development efforts on Snapdragon for better optimization and efficiency.
+
 ## 2.3.1 (2024-12-09)
 - HOTFIX :
   - `Fix UI Installer`
