@@ -4,16 +4,19 @@
 ## 🧂 Bumbu Racik
 <img align="left" width="100" src="./img/furina.png">
 </a>
-<p>Bumbu Racik is a custom Magisk/KernelSU/APatch module designed to optimize the performance and thermal management of Android devices. Initially based on the Neko Thermal module by @NekoTuru, it has been refined and enhanced by @al4uu to provide better performance, especially for Snapdragon-MediaTek-powered devices.</p>
+<p>Bumbu Racik is a custom Magisk/KernelSU/APatch module designed to optimize the performance and thermal management of Android devices. Initially based on the Neko Thermal module by @NekoTuru, it has been refined and enhanced by @al4uu to provide better performance, especially for **Snapdragon-powered** devices.</p>
 
 ## ❓ Requirements
 - Basic knowledge of Android modifications.
 - Android device with Root access (Magisk/KernelSU/APatch).
 
 ## 🤓 Installation
-1. Download the latest release from the [Releases Page](https://github.com/al4uu/bumbu_racik/releases).
+1. Download the latest release from the [Releases Page](https://github.com/al4uu/bumbu_racik/releases)
 2. Install the module via Magisk/KernelSU/APatch Manager.
 3. Reboot your device for the changes to take effect.
+
+## 🔖 Changelogs
+<a href="https://github.com/al4uu/bumbu_racik/blob/main/changelog.md">**Check here for more**</a>
 
 ## 🙏🏻 Credits
 - **@NekoTuru** : For the original Neko Thermal module.
