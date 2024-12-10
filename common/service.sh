@@ -334,4 +334,8 @@ fstrim -v /metadata
 fstrim -v /odm
 fstrim -v /data/dalvik-cache
 
+sleep 10
+
+su -lp 2000 -c "cmd notification post -S bigtext -t '🧂 Bumbu Racik' 'Tag' 'Bumbu Racik is now running on your device. Enjoy enhanced performance !'" > /dev/null 2>&1
+
 exit 0
