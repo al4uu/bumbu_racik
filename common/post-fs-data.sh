@@ -36,6 +36,14 @@ echo "$config" > "$MODPATH"/system/lib64/egl/egl.cfg
 echo "$config" > "$MODPATH"/system/vendor/lib/egl/egl.cfg
 echo "$config" > "$MODPATH"/system/vendor/lib64/egl/egl.cfg
 
+echo "0" > /sys/module/printk/parameters/console_suspend
+echo "N" > /sys/module/kernel/parameters/initcall_debug
+
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq
+do
+    echo "1" > $cpu/boost
+done
+
 echo 0 > /sys/block/sda/queue/iostats
 echo 0 > /sys/block/loop1/queue/iostats
 echo 0 > /sys/block/loop2/queue/iostats
