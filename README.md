@@ -15,7 +15,7 @@
 2. Install the module via **Magisk/KernelSU/APatch** Manager.
 3. Reboot your device for the changes to take effect.
 
-## 🔖 Changelogs
+## 🤔 Changelogs
 - Read full changelog [**here**](https://github.com/al4uu/bumbu_racik/blob/main/changelog.md)
 
 ## 🙏🏻 Credits
