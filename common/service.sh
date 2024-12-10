@@ -151,6 +151,9 @@ echo "3200000" > /proc/sys/kernel/sched_min_granularity_ns
 echo "2000000" > /proc/sys/kernel/sched_migration_cost_ns 
 echo "32" > /proc/sys/kernel/sched_nr_migrate
 
+echo '1' > /sys/power/pnpmgr/touch_boost
+echo '1' > /sys/module/msm_performance/parameters/touchboost
+
 back=/dev/cpuset/background/cpus
 echo "0-1" > $back
 
@@ -181,8 +184,72 @@ echo "60 60" > $sch
 boost=/proc/sys/kernel/sched_boost
 echo "1" > $boost
 
-echo '1' > /sys/module/msm_performance/parameters/touchboost
-echo '1' > /sys/power/pnpmgr/touch_boost
+if [ -e /sys/class/kgsl/kgsl-3d0/snapshot/snapshot_crashdumper ]; then
+  echo "0" > /sys/class/kgsl/kgsl-3d0/snapshot/snapshot_crashdumper
+fi
+if [ -e /sys/class/kgsl/kgsl-3d0/snapshot/dump ]; then
+  echo "0" > /sys/class/kgsl/kgsl-3d0/snapshot/dump
+fi
+if [ -e /sys/class/kgsl/kgsl-3d0/snapshot/force_panic ]; then
+  echo "0" > /sys/class/kgsl/kgsl-3d0/snapshot/force_panic
+fi
+
+if [ -e /sys/module/adreno_idler/parameters/adreno_idler_active ]; then
+  echo "1" > /sys/module/adreno_idler/parameters/adreno_idler_active
+fi
+
+for rx in /sys/module/lpm_levels/parameters/*; do
+  if [ -e "$rx/lpm_ipi_prediction" ]; then
+    echo "0" > "$rx/lpm_ipi_prediction"
+  fi
+  if [ -e "$rx/lpm_prediction" ]; then
+    echo "0" > "$rx/lpm_prediction"
+  fi
+  if [ -e "$rx/sleep_disabled" ]; then
+    echo "0" > "$rx/sleep_disabled"
+  fi
+done
+
+for rcct in /sys/devices/system/cpu/*/core_ctl; do
+  if [ -e "$rcct/enable" ]; then
+    chmod 666 "$rcct/enable"
+    echo "0" > "$rcct/enable"
+    chmod 444 "$rcct/enable"
+  fi
+done
+
+for gpu in /sys/class/kgsl/kgsl-3d0; do
+  if [ -e "$gpu/adrenoboost" ]; then
+    echo "0" > "$gpu/adrenoboost"
+  fi
+  if [ -e "$gpu/devfreq/adrenoboost" ]; then
+    echo "0" > "$gpu/devfreq/adrenoboost"
+  fi
+  if [ -e "$gpu/throttling" ]; then
+    echo "0" > "$gpu/throttling"
+  fi
+  if [ -e "$gpu/bus_split" ]; then
+    echo "0" > "$gpu/bus_split"
+  fi
+  if [ -e "$gpu/force_clk_on" ]; then
+    echo "1" > "$gpu/force_clk_on"
+  fi
+  if [ -e "$gpu/force_bus_on" ]; then
+    echo "1" > "$gpu/force_bus_on"
+  fi
+  if [ -e "$gpu/force_rail_on" ]; then
+    echo "1" > "$gpu/force_rail_on"
+  fi
+  if [ -e "$gpu/force_no_nap" ]; then
+    echo "1" > "$gpu/force_no_nap"
+  fi
+  if [ -e "$gpu/idle_timer" ]; then
+    echo "80" > "$gpu/idle_timer"
+  fi
+  if [ -e "$gpu/max_pwrlevel" ]; then
+    echo "0" > "$gpu/max_pwrlevel"
+  fi
+done
 
 echo 'deadline' > /sys/block/mmcblk0/queue/scheduler
 echo 'deadline' > /sys/block/mmcblk1/queue/scheduler
