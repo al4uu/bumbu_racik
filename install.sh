@@ -8,7 +8,7 @@ ui_print " "
 ui_print "█▄▄ █░█ █▀▄▀█ █▄▄ █░█   █▀█ ▄▀█ █▀▀ █ █▄▀"
 ui_print "█▄█ █▄█ █░▀░█ █▄█ █▄█   █▀▄ █▀█ █▄▄ █ █░█"
 ui_print "- Author : @al4uu"
-ui_print "- Version : 2.4"
+ui_print "- Version : 2.5"
 ui_print " "
 ui_print "- Installing.."
 
