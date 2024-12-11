@@ -91,6 +91,9 @@ echo "230" > /sys/devices/system/cpu/cpu_boost/parameters/input_boost_ms
 echo "3" > /proc/sys/vm/drop_caches
 echo "1" > /proc/sys/vm/compact_memory
 
+echo "com.roblox., com.garena., com.activision., UnityMain, libunity.so, libil2cpp.so, libfb.so" > /proc/sys/kernel/sched_lib_name
+echo "240" > /proc/sys/kernel/sched_lib_mask_force
+
 su -c "stop mi_thermald thermal-engine vendor.thermal-engine traced tombstoned tcpdump cnss_diag statsd vendor.perfservice logcat logcatd logd idd-logreader idd-logreadermain stats dumpstate vendor.tcpdump vendor_tcpdump vendor.cnss_diag"
 
 am kill logd
@@ -115,8 +118,31 @@ echo '0' > "$thermal_zone"/mode
 
 done
 
-echo "com.roblox., com.garena., com.activision., UnityMain, libunity.so, libil2cpp.so, libfb.so" > /proc/sys/kernel/sched_lib_name
-echo "240" > /proc/sys/kernel/sched_lib_mask_force
+if service list | grep -qi thermal; then
+    for svc in $(service list | grep -i thermal | awk -F ' ' '{print $4}'); do
+        start $svc
+        stop $svc
+        cmd thermalservice override-status 0 || true
+    done
+fi
+
+if pgrep -i thermal > /dev/null; then
+    for pid in $(pgrep -i thermal); do
+        kill -SIGSTOP $pid || true
+    done
+fi
+
+if command -v resetprop > /dev/null; then
+    resetprop -v | grep -i 'thermal.*running' | awk -F '[][]' '{print $2}' | while read -r prop; do
+        resetprop $prop freezed || true
+    done
+fi
+
+find /sys/ -type f -name "*throttling*" | while IFS= read -r throttling; do
+    if [ -w "$throttling" ]; then
+        echo 0 > "$throttling"
+    fi
+done
 
 if resetprop dalvik.vm.dexopt.thermal-cutoff | grep -q '2'; then
     resetprop -n dalvik.vm.dexopt.thermal-cutoff 0
@@ -333,6 +359,44 @@ fstrim -v /product
 fstrim -v /metadata
 fstrim -v /odm
 fstrim -v /data/dalvik-cache
+
+sleep 15
+
+setprop debug.sf.hw 1
+setprop debug.egl.hw 1
+setprop debug.sf.showfps 0
+setprop debug.sf.showcpu 0
+setprop debug.mdpcomp.logs 0
+setprop debug.qc.hardware true
+setprop debug.qctwa.statusbar 1
+setprop debug.sf.showupdates 0
+setprop debug.egl.disable_msaa 1
+setprop debug.hwui.renderer skiagl
+setprop debug.cpurend.vsync false
+setprop debug.qctwa.preservebuf 1
+setprop debug.sf.enable_hwc_vds 0
+setprop debug.sf.latch_unsignaled 1
+setprop debug.performance.tuning 1
+setprop debug.sf.showbackground 0
+setprop debug.composition.type gpu
+setprop debug.egl.disable_msaa true
+setprop debug.sf.disable_backpressure 1
+setprop debug.gralloc.gfx_ubwc_disable 1
+setprop debug.sf.enable_gl_backpressure 1
+setprop debug.hwui.skia_atrace_enabled false
+setprop debug.hwui.render_dirty_regions false
+setprop debug.sf.early_phase_offset_ns 500000
+setprop debug.sf.enable_transaction_tracing false
+setprop debug.renderengine.backend skiaglthreaded
+setprop debug.sf.early_gl_phase_offset_ns 3000000
+setprop debug.sf.disable_client_composition_cache 0
+setprop debug.sf.early_app_phase_offset_ns 500000
+setprop debug.sf.early_gl_app_phase_offset_ns 15000000
+setprop debug.sf.high_fps_early_phase_offset_ns 6100000
+setprop debug.renderthread.skia.reduceopstasksplitting true
+setprop debug.sf.high_fps_early_gl_phase_offset_ns 650000
+setprop debug.sf.high_fps_late_app_phase_offset_ns 100000
+setprop debug.sf.phase_offset_threshold_for_next_vsync_ns 6100000
 
 sleep 10
 
