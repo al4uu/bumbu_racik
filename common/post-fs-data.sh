@@ -36,13 +36,9 @@ echo "$config" > "$MODPATH"/system/lib64/egl/egl.cfg
 echo "$config" > "$MODPATH"/system/vendor/lib/egl/egl.cfg
 echo "$config" > "$MODPATH"/system/vendor/lib64/egl/egl.cfg
 
-echo "0" > /sys/module/printk/parameters/console_suspend
 echo "N" > /sys/module/kernel/parameters/initcall_debug
-
-for cpu in /sys/devices/system/cpu/cpu*/cpufreq
-do
-    echo "1" > $cpu/boost
-done
+echo "0" > /sys/module/printk/parameters/console_suspend
+echo "bbr" > /sys/module/tcp_bbr/parameters/tcp_congestion_control
 
 echo 0 > /sys/block/sda/queue/iostats
 echo 0 > /sys/block/loop1/queue/iostats
@@ -57,6 +53,18 @@ echo 0 > /sys/block/loop0/queue/iostats
 echo 0 > /sys/block/mmcblk1/queue/iostats
 echo 0 > /sys/block/mmcblk0/queue/iostats
 echo 0 > /sys/block/mmcblk0rpmb/queue/iostats
+
+for cpu in /sys/devices/system/cpu/cpu*/cpufreq
+do
+    echo "1" > $cpu/boost
+done
+
+pm disable com.qualcomm.qti.cne
+pm disable com.qualcomm.location.XT
+
+settings put system vibrate_on 0
+settings put global auto_sync 0
+settings put global wifi_scan_always_enabled 0
 
 resetprop -n log_ao 0
 resetprop -n rw.logger 0
@@ -90,6 +98,8 @@ resetprop -n config.disable_rtt true
 resetprop -n persist.logd.size 65536
 resetprop -n debug.hwc_dump_en 0
 resetprop -n debug.mdpcomp.logs 0
+resetprop -n vendor.performance.gbe 1
+resetprop -n persist.traced_perf.enable 0
 resetprop -n sys.wifitracing.started 0
 resetprop -n persist.ims.disabled true
 resetprop -n vendor.debug.rs.visual 0
@@ -162,6 +172,7 @@ resetprop -n persist.vendor.radio.adb_log_on 0
 resetprop -n vendor.debug.rs.forcerecompile 0
 resetprop -n persist.sys.ssr.enable_debug false
 resetprop -n persist.sys.strictmode.disable true
+resetprop -n persist.sys.turbosched.enable true
 resetprop -n persist.ims.disableQXDMLogs true
 resetprop -n persist.ims.disableDebugLogs true
 resetprop -n ro.vendor.connsys.dedicated.log 0
@@ -189,5 +200,7 @@ resetprop -n persist.vendor.radio.snapshot_enabled false
 resetprop -n debug.sf.disable_client_composition_cache 1
 resetprop -n persist.vendor.verbose_logging_enabled false
 resetprop -n persist.vendor.sys.modem.logging.enable false
+resetprop -n persist.sys.turbosched.enable.coreApp.optimizer true
+resetprop -n persist.device_config.surface_flinger_native_boot.SkiaTracingFeature__use_skia_tracing true
 
 rm "$MODPATH"/post-fs-data.sh
