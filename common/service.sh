@@ -112,6 +112,14 @@ rm -rf /data/log/*
 rm -rf /sys/kernel/debug/*
 rm -rf /storage/emulated/0/*.log;
 
+for i in "debug_mask" "log_level*" "debug_level*" "*debug_mode" "enable_ramdumps" "edac_mc_log*" "enable_event_log" "*log_level*" "*log_ue*" "*log_ce*" "log_ecn_error" "snapshot_crashdumper" "seclog*" "compat-log" "*log_enabled" "tracing_on" "mballoc_debug"; do
+    find /sys/ -type f -name "$i" | while IFS= read -r log_file; do
+        if [ -w "$log_file" ]; then
+            echo "0" > "$log_file"
+        fi
+    done
+done
+
 for thermal_zone in /sys/class/thermal/thermal_zone*; do
 
 echo '0' > "$thermal_zone"/mode
@@ -141,6 +149,17 @@ fi
 find /sys/ -type f -name "*throttling*" | while IFS= read -r throttling; do
     if [ -w "$throttling" ]; then
         echo 0 > "$throttling"
+    fi
+done
+
+find /sys/ -name enabled | grep 'msm_thermal' | while IFS= read -r msm_thermal_status; do
+    if [ -r "$msm_thermal_status" ]; then
+        msm_thermal_value=$(cat "$msm_thermal_status")
+        if [ "$msm_thermal_value" = 'Y' ]; then
+            echo 'N' > "$msm_thermal_status"
+        elif [ "$msm_thermal_value" = '1' ]; then
+            echo '0' > "$msm_thermal_status"
+        fi
     fi
 done
 
