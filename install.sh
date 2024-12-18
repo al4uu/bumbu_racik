@@ -32,7 +32,6 @@ sleep 1
 ui_print "- Kernel Version : $(uname -r)"
 sleep 1
 ui_print " "
-sleep 1
 ui_print "- Installing.."
 
 sleep 5
@@ -43,4 +42,5 @@ cp -af "$TMPDIR"/common/uninstall.sh "$MODPATH"/uninstall.sh >/dev/null 2>&1
 
 sleep 5
 
+ui_print "- Installation Successful."
 ui_print " "
