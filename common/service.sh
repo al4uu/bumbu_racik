@@ -376,7 +376,7 @@ echo "1024" > /sys/block/mmcblk0/queue/nr_requests
 busybox=$(find /data/adb/ -type f -name busybox | head -n 1)
 $busybox swapoff /dev/block/zram0
 echo "1" > /sys/block/zram0/reset
-echo "3221225472" > /sys/block/zram0/disksize
+echo "4294967296" > /sys/block/zram0/disksize
 $busybox mkswap /dev/block/zram0
 $busybox swapon /dev/block/zram0
 
