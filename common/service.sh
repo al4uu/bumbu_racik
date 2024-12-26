@@ -489,11 +489,16 @@ setprop debug.performance.tuning 1
 setprop debug.sf.showbackground 0
 setprop debug.composition.type gpu
 setprop debug.egl.disable_msaa true
+setprop debug.hwui.render_thread true
+setprop debug.skia.threaded_mode true
 setprop debug.sf.disable_backpressure 1
 setprop debug.gralloc.gfx_ubwc_disable 1
+setprop debug.skia.num_render_threads 1
+setprop debug.hwui.render_thread_count 1
 setprop debug.sf.enable_gl_backpressure 1
 setprop debug.hwui.skia_atrace_enabled false
 setprop debug.hwui.render_dirty_regions false
+setprop debug.skia.render_thread_priority true
 setprop debug.sf.early_phase_offset_ns 500000
 setprop debug.sf.enable_transaction_tracing false
 setprop debug.renderengine.backend skiaglthreaded
