@@ -132,10 +132,27 @@ for i in "debug_mask" "log_level*" "debug_level*" "*debug_mode" "enable_ramdumps
 done
 
 for thermal_zone in /sys/class/thermal/thermal_zone*; do
-
-echo '0' > "$thermal_zone"/mode
-
+    if [ -w "$thermal_zone/mode" ]; then
+        echo 'disabled' > "$thermal_zone/mode"
+    fi
 done
+
+for thermal_zone in /sys/class/thermal/thermal_zone*; do
+    if [ -w "$thermal_zone/temp" ]; then
+        chmod 000 "$thermal_zone/temp"
+    fi
+done
+
+find /sys -name mode | grep 'thermal_zone' | while IFS= read -r thermal_zone_status; do
+    if [ -r "$thermal_zone_status" ]; then
+        thermal_mode=$(cat "$thermal_zone_status")
+        if [ "$thermal_mode" = 'enabled' ]; then
+            echo 'disabled' > "$thermal_zone_status"
+        fi
+    fi
+done
+
+find /sys/devices/virtual/thermal -type f -exec chmod 000 {} +
 
 if service list | grep -qi thermal; then
     for svc in $(service list | grep -i thermal | awk -F ' ' '{print $4}'); do
