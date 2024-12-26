@@ -1,4 +1,11 @@
-# Changelogs
+# CL - Bumbu Racik
+
+## 3.0 (2024-12-26)
+- Improvement and Refine Code Logic
+- Optimized thermal and CPU performance.
+- Adjusted ZRAM for better memory management.
+- Improved UI rendering with thread adjustments.
+- Enhanced system stability and app compatibility.
 
 ## 2.6 (2024-12-18)
 - Disable Qualcomm CNE and Qualcomm Location apps to save resources.
