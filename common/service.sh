@@ -131,6 +131,15 @@ for i in "debug_mask" "log_level*" "debug_level*" "*debug_mode" "enable_ramdumps
     done
 done
 
+for thermal in $(resetprop | awk -F '[][]' '/thermal|init.svc.vendor.thermal-hal/ {print $2}'); do
+  if [[ $(resetprop "$thermal") == "running" || $(resetprop "$thermal") == "restarting" ]]; then
+    service_name="${thermal/init.svc.vendor.thermal-hal/}"
+    stop "${thermal/init.svc.}" || true
+    sleep 10
+    resetprop -n "$thermal" stopped
+  fi
+done
+
 for thermal_zone in /sys/class/thermal/thermal_zone*; do
     if [ -w "$thermal_zone/mode" ]; then
         echo 'disabled' > "$thermal_zone/mode"
