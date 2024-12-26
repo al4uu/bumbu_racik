@@ -94,6 +94,7 @@ echo "0" > "/sys/module/printk/parameters/printk_ratelimit"
 echo "0" > "/sys/module/printk/parameters/time"
 echo "1" > "/sys/module/printk/parameters/console_suspend"
 echo "1" > "/sys/module/printk/parameters/ignore_loglevel"
+echo "N" > "/sys/module/sync/parameters/fsync_enabled"
 echo "off" > "/proc/sys/kernel/printk_devkmsg"
 
 echo "0:1800000" > /sys/devices/system/cpu/cpu_boost/parameters/input_boost_freq
@@ -102,8 +103,12 @@ echo "230" > /sys/devices/system/cpu/cpu_boost/parameters/input_boost_ms
 echo "3" > /proc/sys/vm/drop_caches
 echo "1" > /proc/sys/vm/compact_memory
 
-echo "com.roblox., com.garena., com.activision., UnityMain, libunity.so, libil2cpp.so, libfb.so" > /proc/sys/kernel/sched_lib_name
-echo "240" > /proc/sys/kernel/sched_lib_mask_force
+lib_names="com.miHoYo., com.activision., com.garena., com.roblox., com.epicgames, com.dts., UnityMain, libunity.so, libil2cpp.so, libmain.so, libcri_vip_unity.so, libopus.so, libxlua.so, libUE4.so, libAsphalt9.so, libnative-lib.so, libRiotGamesApi.so, libResources.so, libagame.so, libapp.so, libflutter.so, libMSDKCore.so, libFIFAMobileNeon.so, libUnreal.so, libEOSSDK.so, libcocos2dcpp.so, libgodot_android.so, libgdx.so, libgdx-box2d.so, libminecraftpe.so, libLive2DCubismCore.so, libyuzu-android.so, libryujinx.so, libcitra-android.so, libhdr_pro_engine.so, libandroidx.graphics.path.so, libeffect.s"
+
+echo "$lib_names" > /proc/sys/kernel/sched_lib_name
+echo "255" > /proc/sys/kernel/sched_lib_mask_force
+echo "$lib_names" > /proc/sys/walt/sched_lib_name
+echo "255" > /proc/sys/walt/sched_lib_mask_force
 
 su -c "stop mi_thermald thermal-engine vendor.thermal-engine traced tombstoned tcpdump cnss_diag statsd vendor.perfservice logcat logcatd logd idd-logreader idd-logreadermain stats dumpstate vendor.tcpdump vendor_tcpdump vendor.cnss_diag"
 
