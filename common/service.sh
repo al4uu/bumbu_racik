@@ -218,24 +218,6 @@ if resetprop dalvik.vm.dexopt.thermal-cutoff | grep -q '2'; then
         stop $therm_serv
     done
 
-echo "0" > /sys/kernel/rcu_expedited 0
-echo "0" > /sys/kernel/rcu_normal 0
-echo "0" > /sys/devices/system/cpu/isolated 0
-echo "0" > /proc/sys/kernel/sched_tunable_scaling 0
-echo "1" > /proc/sys/kernel/timer_migration 1
-echo "0" > /proc/sys/kernel/hung_task_timeout_secs 0
-echo "25" > /proc/sys/kernel/perf_cpu_time_max_percent 25
-echo "1" > /proc/sys/kernel/sched_autogroup_enabled 1
-echo "0" > /proc/sys/kernel/sched_child_runs_first 0
-echo "10000000" > /proc/sys/kernel/sched_latency_ns 
-echo "2000000" > /proc/sys/kernel/sched_wakeup_granularity_ns 
-echo "3200000" > /proc/sys/kernel/sched_min_granularity_ns 
-echo "2000000" > /proc/sys/kernel/sched_migration_cost_ns 
-echo "32" > /proc/sys/kernel/sched_nr_migrate
-
-echo '1' > /sys/power/pnpmgr/touch_boost
-echo '1' > /sys/module/msm_performance/parameters/touchboost
-
 back=/dev/cpuset/background/cpus
 echo "0-1" > $back
 
@@ -333,6 +315,69 @@ for gpu in /sys/class/kgsl/kgsl-3d0; do
   fi
 done
 
+if [ -d /sys/devices/system/cpu/bus_dcvs/LLCC ]; then
+    freq=$(cat /sys/devices/system/cpu/bus_dcvs/LLCC/available_frequencies | tr ' ' '\n' | sort -nr | head -n 1)
+    if [ -n "$freq" ]; then
+        for path in /sys/devices/system/cpu/bus_dcvs/LLCC/*/max_freq; do
+            echo $freq > "$path"
+        done
+        for path in /sys/devices/system/cpu/bus_dcvs/LLCC/*/min_freq; do
+            echo $freq > "$path"
+        done
+    fi
+fi
+
+if [ -d /sys/devices/system/cpu/bus_dcvs/L3 ]; then
+    freq=$(cat /sys/devices/system/cpu/bus_dcvs/L3/available_frequencies | tr ' ' '\n' | sort -nr | head -n 1)
+    if [ -n "$freq" ]; then
+        for path in /sys/devices/system/cpu/bus_dcvs/L3/*/max_freq; do
+            echo $freq > "$path"
+        done
+        for path in /sys/devices/system/cpu/bus_dcvs/L3/*/min_freq; do
+            echo $freq > "$path"
+        done
+    fi
+fi
+
+if [ -d /sys/devices/system/cpu/bus_dcvs/DDR ]; then
+    freq=$(cat /sys/devices/system/cpu/bus_dcvs/DDR/available_frequencies | tr ' ' '\n' | sort -nr | head -n 1)
+    if [ -n "$freq" ]; then
+        for path in /sys/devices/system/cpu/bus_dcvs/DDR/*/max_freq; do
+            echo $freq > "$path"
+        done
+        for path in /sys/devices/system/cpu/bus_dcvs/DDR/*/min_freq; do
+            echo $freq > "$path"
+        done
+    fi
+fi
+
+if [ -d /sys/devices/system/cpu/bus_dcvs/DDRQOS ]; then
+    freq=$(cat /sys/devices/system/cpu/bus_dcvs/DDRQOS/available_frequencies | tr ' ' '\n' | sort -nr | head -n 1)
+    if [ -n "$freq" ]; then
+        for path in /sys/devices/system/cpu/bus_dcvs/DDRQOS/*/max_freq; do
+            echo $freq > "$path"
+        done
+        for path in /sys/devices/system/cpu/bus_dcvs/DDRQOS/*/min_freq; do
+            echo $freq > "$path"
+        done
+    fi
+fi
+
+echo "0" > /sys/kernel/rcu_expedited 0
+echo "0" > /sys/kernel/rcu_normal 0
+echo "0" > /sys/devices/system/cpu/isolated 0
+echo "0" > /proc/sys/kernel/sched_tunable_scaling 0
+echo "1" > /proc/sys/kernel/timer_migration 1
+echo "0" > /proc/sys/kernel/hung_task_timeout_secs 0
+echo "25" > /proc/sys/kernel/perf_cpu_time_max_percent 25
+echo "1" > /proc/sys/kernel/sched_autogroup_enabled 1
+echo "0" > /proc/sys/kernel/sched_child_runs_first 0
+echo "10000000" > /proc/sys/kernel/sched_latency_ns 
+echo "2000000" > /proc/sys/kernel/sched_wakeup_granularity_ns 
+echo "3200000" > /proc/sys/kernel/sched_min_granularity_ns 
+echo "2000000" > /proc/sys/kernel/sched_migration_cost_ns 
+echo "32" > /proc/sys/kernel/sched_nr_migrate
+
 echo 'deadline' > /sys/block/mmcblk0/queue/scheduler
 echo 'deadline' > /sys/block/mmcblk1/queue/scheduler
 echo '1024' > /sys/block/mmcblk0/queue/read_ahead_kb
@@ -398,6 +443,9 @@ echo "0" > /sys/block/mmcblk0/queue/add_random
 echo "1" > /sys/block/mmcblk0/queue/rq_affinity
 echo "0" > /sys/block/mmcblk0/queue/nomerges
 echo "1024" > /sys/block/mmcblk0/queue/nr_requests
+
+echo '1' > /sys/power/pnpmgr/touch_boost
+echo '1' > /sys/module/msm_performance/parameters/touchboost
 
 busybox=$(find /data/adb/ -type f -name busybox | head -n 1)
 $busybox swapoff /dev/block/zram0
