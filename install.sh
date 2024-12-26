@@ -22,7 +22,7 @@ sleep 1
 ui_print "| █▄▄ █░█ █▀▄▀█ █▄▄ █░█   █▀█ ▄▀█ █▀▀ █ █▄▀"
 ui_print "| █▄█ █▄█ █░▀░█ █▄█ █▄█   █▀▄ █▀█ █▄▄ █ █░█"
 ui_print "- Author : @al4uu"
-ui_print "- Version : 2.6"
+ui_print "- Version : 3.0"
 ui_print " "
 sleep 1
 ui_print "- Device : $(getprop ro.product.manufacturer), $(getprop ro.product.device)"
