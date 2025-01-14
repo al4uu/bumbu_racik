@@ -1,7 +1,14 @@
 # CL - Bumbu Racik
 
+## 3.1 (2025-01-14)
+- Fix some value string.
+- Add performance-focused configurations.
+- Improve `GPU` and render thread efficiency.
+- Adjust `HWUI` settings for smoother `UI` rendering.
+- Fine-tune `msm_thermal` and `CPU` boost parameters.
+
 ## 3.0 (2024-12-26)
-- Improvement and Refine Code Logic
+- Improvement and Refine Code Logic.
 - Optimized thermal and CPU performance.
 - Adjusted ZRAM for better memory management.
 - Improved UI rendering with thread adjustments.
