@@ -486,6 +486,12 @@ echo "1024" > /sys/block/mmcblk0/queue/nr_requests
 echo "1" > /sys/power/pnpmgr/touch_boost
 echo "1" > /sys/module/msm_performance/parameters/touchboost
 
+echo "0" > /sys/kernel/msm_thermal/enabled
+echo "N" > /sys/module/msm_thermal/parameters/enabled
+echo "0" > /sys/module/msm_thermal/core_control/enabled
+echo "0" > /sys/module/msm_thermal/vdd_restriction/enabled
+echo "0" > /sys/devices/system/cpu/cpu_boost/sched_boost_on_input
+
 busybox=$(find /data/adb/ -type f -name busybox | head -n 1)
 $busybox swapoff /dev/block/zram0
 echo "1" > /sys/block/zram0/reset
