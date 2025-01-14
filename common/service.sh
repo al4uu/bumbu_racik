@@ -44,41 +44,45 @@ find /sys/devices/system/cpu -maxdepth 1 -name 'cpu?' | while IFS= read -r cpu; 
   echo performance > "$cpu/cpufreq/scaling_governor"
 done
 
-echo 0 > /sys/class/kgsl/kgsl-3d0/throttling
-echo 0 > /sys/class/kgsl/kgsl-3d0/bus_split
-echo 1 > /sys/class/kgsl/kgsl-3d0/force_no_nap
-echo 1 > /sys/class/kgsl/kgsl-3d0/force_rail_on
-echo 1 > /sys/class/kgsl/kgsl-3d0/force_bus_on
-echo 1 > /sys/class/kgsl/kgsl-3d0/force_clk_on
+for ufsemmc in /sys/class/devfreq/*.ufshc; do
+    [ -w "$ufsemmc/governor" ] && echo "performance" > "$ufsemmc/governor"
+done
+for ufsemmc in /sys/class/devfreq/mmc*; do
+    [ -w "$ufsemmc/governor" ] && echo "performance" > "$ufsemmc/governor"
+done
 
-echo '1' /sys/kernel/fast_charge/force_fast_charge
-echo '1' /sys/class/power_supply/battery/system_temp_level
-echo '1' /sys/kernel/fast_charge/failsafe
-echo '1' /sys/class/power_supply/battery/allow_hvdcp3
-echo '1' /sys/class/power_supply/usb/pd_allowed
-echo '1' /sys/class/power_supply/battery/subsystem/usb/pd_allowed
-echo '0' /sys/class/power_supply/battery/input_current_limited
-echo '1' /sys/class/power_supply/battery/input_current_settled
-echo '0' /sys/class/qcom-battery/restricted_charging
-echo '150' /sys/class/power_supply/bms/temp_cool
-echo '480' /sys/class/power_supply/bms/temp_hot
-echo '480' /sys/class/power_supply/bms/temp_warm
+echo "0" > /sys/class/kgsl/kgsl-3d0/throttling
+echo "0" > /sys/class/kgsl/kgsl-3d0/bus_split
+echo "1" > /sys/class/kgsl/kgsl-3d0/force_no_nap
+echo "1" > /sys/class/kgsl/kgsl-3d0/force_rail_on
+echo "1" > /sys/class/kgsl/kgsl-3d0/force_bus_on
+echo "1" > /sys/class/kgsl/kgsl-3d0/force_clk_on
 
-chmod 755 /sys/class/power_supply/battery/constant_charge_current_max
-echo 4000000 > /sys/class/power_supply/battery/constant_charge_current_max
-chmod 755 /sys/class/power_supply/battery/input_current_max
-echo 4000000 > /sys/class/power_supply/battery/input_current_max
+echo "1" /sys/kernel/fast_charge/force_fast_charge
+echo "1" /sys/class/power_supply/battery/system_temp_level
+echo "1" /sys/kernel/fast_charge/failsafe
+echo "1" /sys/class/power_supply/battery/allow_hvdcp3
+echo "1" /sys/class/power_supply/usb/pd_allowed
+echo "1" /sys/class/power_supply/battery/subsystem/usb/pd_allowed
+echo "0" /sys/class/power_supply/battery/input_current_limited
+echo "1" /sys/class/power_supply/battery/input_current_settled
+echo "0" /sys/class/qcom-battery/restricted_charging
+echo "150" /sys/class/power_supply/bms/temp_cool
+echo "480" /sys/class/power_supply/bms/temp_hot
+echo "480" /sys/class/power_supply/bms/temp_warm
+
+echo "4000000" > /sys/class/power_supply/battery/constant_charge_current_max
+echo "4000000" > /sys/class/power_supply/battery/input_current_max
 chmod 444 /sys/class/power_supply/battery/constant_charge_current_max
 chmod 444 /sys/class/power_supply/battery/input_current_max
 
-chmod 755 /sys/module/qti_haptics/parameters/vmax_mv_override
-echo 500 > /sys/module/qti_haptics/parameters/vmax_mv_override
+echo "500" > /sys/module/qti_haptics/parameters/vmax_mv_override
 chmod 444 /sys/module/qti_haptics/parameters/vmax_mv_override
 
-echo 0 > /d/tracing/tracing_on
-echo 0 > /sys/kernel/debug/rpm_log
-echo 0 > /sys/module/rmnet_data/parameters/rmnet_data_log_level
-echo 500 > /sys/module/qti_haptics/parameters/vmax_mv_override
+echo "0" > /d/tracing/tracing_on
+echo "0" > /sys/kernel/debug/rpm_log
+echo "0" > /sys/module/rmnet_data/parameters/rmnet_data_log_level
+echo "500" > /sys/module/qti_haptics/parameters/vmax_mv_override
 
 echo "1" > /sys/module/spurious/parameters/noirqdebug
 echo "0" > /sys/kernel/debug/sde_rotator0/evtlog/enable
@@ -135,6 +139,24 @@ for i in "debug_mask" "log_level*" "debug_level*" "*debug_mode" "enable_ramdumps
         fi
     done
 done
+
+for corecpu in /sys/devices/system/cpu/cpu[1-7] /sys/devices/system/cpu/cpu1[0-7]; do
+    [ -w "$corecpu/core_ctl/enable" ] && echo "1" > "$corecpu/core_ctl/enable"
+    [ -w "$corecpu/core_ctl/core_ctl_boost" ] && echo "1" > "$corecpu/core_ctl/core_ctl_boost"
+done
+
+for pl in /sys/devices/system/cpu/perf; do
+    [ -w "$pl/gpu_pmu_enable" ] && echo "1" > "$pl/gpu_pmu_enable"
+    [ -w "$pl/fuel_gauge_enable" ] && echo "1" > "$pl/fuel_gauge_enable"
+    [ -w "$pl/enable" ] && echo "1" > "$pl/enable"
+    [ -w "$pl/charger_enable" ] && echo "1" > "$pl/charger_enable"
+done
+
+[ -w /proc/ppm/enabled ] && echo "1" > /proc/ppm/enabled
+for i in $(seq 0 9); do
+    [ -w /proc/ppm/policy_status ] && echo "$i 0" > /proc/ppm/policy_status
+done
+[ -w /proc/ppm/policy_status ] && echo "7 1" > /proc/ppm/policy_status
 
 for thermal in $(resetprop | awk -F '[][]' '/thermal|init.svc.vendor.thermal-hal/ {print $2}'); do
   if [[ $(resetprop "$thermal") == "running" || $(resetprop "$thermal") == "restarting" ]]; then
@@ -368,6 +390,18 @@ if [ -d /sys/devices/system/cpu/bus_dcvs/DDRQOS ]; then
     fi
 fi
 
+[ -w /sys/module/workqueue/parameters/power_efficient ] && echo "N" > /sys/module/workqueue/parameters/power_efficient
+[ -w /sys/module/workqueue/parameters/disable_numa ] && echo "N" > /sys/module/workqueue/parameters/disable_numa
+
+[ -w /sys/devices/system/cpu/eas/enable ] && echo "0" > /sys/devices/system/cpu/eas/enable
+[ -w /proc/cpufreq/cpufreq_power_mode ] && echo "3" > /proc/cpufreq/cpufreq_power_mode
+[ -w /proc/cpufreq/cpufreq_cci_mode ] && echo "1" > /proc/cpufreq/cpufreq_cci_mode
+[ -w /proc/cpufreq/cpufreq_sched_disable ] && echo "1" > /proc/cpufreq/cpufreq_sched_disable
+
+[ -w /proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_fg_boost ] && echo "100" > /proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_fg_boost
+[ -w /proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_ta_boost ] && echo "100" > /proc/perfmgr/boost_ctrl/eas_ctrl/perfserv_ta_boost
+[ -w /proc/perfmgr/syslimiter/syslimiter_force_disable ] && echo "1" > /proc/perfmgr/syslimiter/syslimiter_force_disable
+
 echo "0" > /sys/kernel/rcu_expedited 0
 echo "0" > /sys/kernel/rcu_normal 0
 echo "0" > /sys/devices/system/cpu/isolated 0
@@ -383,10 +417,10 @@ echo "3200000" > /proc/sys/kernel/sched_min_granularity_ns
 echo "2000000" > /proc/sys/kernel/sched_migration_cost_ns 
 echo "32" > /proc/sys/kernel/sched_nr_migrate
 
-echo 'deadline' > /sys/block/mmcblk0/queue/scheduler
-echo 'deadline' > /sys/block/mmcblk1/queue/scheduler
-echo '1024' > /sys/block/mmcblk0/queue/read_ahead_kb
-echo '1024' > /sys/block/mmcblk1/queue/read_ahead_kb
+echo "deadline" > /sys/block/mmcblk0/queue/scheduler
+echo "deadline" > /sys/block/mmcblk1/queue/scheduler
+echo "1024" > /sys/block/mmcblk0/queue/read_ahead_kb
+echo "1024" > /sys/block/mmcblk1/queue/read_ahead_kb
 echo "75" > /sys/devices/system/cpu/cpufreq/performance/up_threshold
 echo "40000" > /sys/devices/system/cpu/cpufreq/performance/sampling_rate
 echo "5" > /sys/devices/system/cpu/cpufreq/performance/sampling_down_factor
@@ -449,8 +483,8 @@ echo "1" > /sys/block/mmcblk0/queue/rq_affinity
 echo "0" > /sys/block/mmcblk0/queue/nomerges
 echo "1024" > /sys/block/mmcblk0/queue/nr_requests
 
-echo '1' > /sys/power/pnpmgr/touch_boost
-echo '1' > /sys/module/msm_performance/parameters/touchboost
+echo "1" > /sys/power/pnpmgr/touch_boost
+echo "1" > /sys/module/msm_performance/parameters/touchboost
 
 busybox=$(find /data/adb/ -type f -name busybox | head -n 1)
 $busybox swapoff /dev/block/zram0
@@ -512,8 +546,11 @@ setprop debug.sf.high_fps_early_gl_phase_offset_ns 650000
 setprop debug.sf.high_fps_late_app_phase_offset_ns 100000
 setprop debug.sf.phase_offset_threshold_for_next_vsync_ns 6100000
 
+cmd power set-adaptive-power-saver-enabled false
+cmd power set-fixed-performance-mode-enabled true
+
 sleep 10
 
-su -lp 2000 -c "cmd notification post -S bigtext -t '🧂 Bumbu Racik' 'Tag' 'Bumbu Racik is now running on your device. Enjoy enhanced performance !'" > /dev/null 2>&1
+su -lp 2000 -c "cmd notification post -S bigtext -t '🧂 Bumbu Racik' 'Tag' 'Bumbu Racik is now running on your Device.'" > /dev/null 2>&1
 
 exit 0
