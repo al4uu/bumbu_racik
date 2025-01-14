@@ -4,25 +4,11 @@ PROPFILE=true
 POSTFSDATA=true
 LATESTARTSERVICE=true
 
-ui_print "| ⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀"
-ui_print "| ⢀⢀⢀⢀⢀⢀⢀⡤⠒⠋⠉⠉⠉⠉⠉⠑⠲⢄⢀⢀⢀⢀⢀⢀⢀"
-ui_print "| ⢀⢀⢀⢀⢀⠔⢁⡠⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⠉⢢⢀⢀⢀⢀⢀"
-ui_print "| ⢀⢀⢀⢠⠃⣴⡇⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⠱⡄⢀⢀⢀"
-ui_print "| ⢀⢀⢠⠃⢀⣿⣧⣀⢀⢀⣀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⠹⡀⢀⢀"
-ui_print "| ⢀⢀⡇⢀⢀⠹⣶⣿⣿⣿⣿⣿⣶⣶⣶⣤⡀⢀⢀⣴⡿⢀⡇⢀⢀"
-ui_print "| ⢀⢀⡇⢀⢀⢀⠤⣾⣿⠿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠟⠁⢀⡇⢀⢀"
-ui_print "| ⢀⢀⡇⢀⣠⣤⣶⣿⣿⣧⣉⣿⣿⡟⣃⣿⢿⡿⢀⢀⢀⢀⡇⢀⢀"
-ui_print "| ⢀⢀⠘⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠇⢀⢀⢀⢀⢀⡰⠁⢀⢀"
-ui_print "| ⢀⢀⢀⠘⣿⣿⣿⣿⣿⣏⡀⢀⣸⣿⣿⢀⢀⢀⢀⢀⡰⠃⢀⢀⢀"
-ui_print "| ⢀⢀⢀⢀⠈⠻⣿⣿⣿⣿⣿⣿⣿⣿⡏⢀⢀⢀⣠⠞⠁⢀⢀⢀⢀"
-ui_print "| ⢀⢀⢀⢀⢀⢀⠈⠙⠿⢿⣿⣿⣿⣿⣇⡠⠔⠊⠁⢀⢀⢀⢀⢀⢀"
-ui_print "| ⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀⢀"
-ui_print " "
-sleep 1
-ui_print "| █▄▄ █░█ █▀▄▀█ █▄▄ █░█   █▀█ ▄▀█ █▀▀ █ █▄▀"
-ui_print "| █▄█ █▄█ █░▀░█ █▄█ █▄█   █▀▄ █▀█ █▄▄ █ █░█"
-ui_print "- Author : @al4uu"
-ui_print "- Version : 3.0"
+ui_print "************************"
+ui_print "*   Bumbu Racik V3.1   *"
+ui_print "***********************"
+ui_print "*   @al4uu @allprjkt   *"
+ui_print "************************"
 ui_print " "
 sleep 1
 ui_print "- Device : $(getprop ro.product.manufacturer), $(getprop ro.product.device)"
@@ -43,4 +29,6 @@ cp -af "$TMPDIR"/common/uninstall.sh "$MODPATH"/uninstall.sh >/dev/null 2>&1
 sleep 5
 
 ui_print "- Installation Successful."
+sleep 2
+ui_print "- The secret recipe is gonna take over your Device !"
 ui_print " "
