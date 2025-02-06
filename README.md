@@ -1,31 +1,8 @@
 ## a secret recipe to boost your android performance !
 <img align="center" width="800" src="./assets/bumbu_racik.webp">
 
-## 🧂 Bumbu Racik
-<img align="left" width="100" src="./assets/archon_hydro.webp">
-</a>
-<p>Bumbu Racik is a Magisk/KernelSU/APatch module designed to optimize the performance and thermal management of Android devices. Initially based on the Neko Thermal module by @NekoTuru, it has been refined and enhanced by @al4uu to provide better performance, especially for Snapdragon-Powered devices.</p>
-
-## 📑 Notes
-- Combine this module with [**Adreno GPU Drivers**](https://t.me/lhmodshare) for better performance.
-
-## ❓ Requirements
-- Basic knowledge of Android modifications.
-- Android device with Root access **(Magisk/KernelSU/APatch)**.
-
-## 🤓 Installation
-1. Download the latest release from the [**Releases Page**](https://github.com/al4uu/bumbu_racik/releases)
-2. Install the module via **Magisk/KernelSU/APatch** Manager.
-3. Reboot your device for the changes to take effect.
-
-## 🤔 Changelogs
-- Read full changelog [**here**](https://github.com/al4uu/bumbu_racik/blob/main/changelog.md)
-
-## 🫱🏻‍🫲🏼 Contribution
-<img align="left" width="100" src="./assets/sovereigns_hydro.webp" style="margin-right: 15px;">
-<p>
-If you would like to contribute or further develop Bumbu Racik, please fork this repository and submit a pull request. Enter suggestions or open an issue for further discussion. We welcome suggestions, issues, and feedback to continuously enhance the module.
-</p>
+## 🧂 ⚠️ Bumbu Racik has been discontinued.
+This module is *discontinued* since [**SnapFest**](https://github.com/al4uu/snapfest.git), its *successor*, is here way more stable, faster, and optimized. But the **repo’s** still up, so if anyone wants to **fork** and keep it going **unofficially**, they still can.
 
 ## 📋 License
 This project is licensed under the **Apache License 2.0**. 
